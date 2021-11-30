@@ -1,0 +1,120 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "krp syntax",
+	"patterns": [
+		{
+			"include": "#keywords"
+		}
+		,{
+			"include": "#strings"
+		}
+		,{
+			"include": "#inline-comment"
+		}
+		,{
+			"include": "#constants-words"
+		}
+		,{
+			"include": "#operators"
+		}
+		,{
+			"include": "#support-functions"
+		}
+		,{
+			"include": "#numbers"
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [{
+				"name": "support.type.builtin.krp",
+				"match": "\\b(true|false|for)\\b"
+			}]
+		}
+		,"constants-words": {
+			"patterns": [{
+				"name": "keyword.control.krp",
+				"match": "\\b(if|while|for)\\b"
+			}]
+		}
+		,"numbers": {
+            "match": "(?x)\n(?<!\\$)(?:\n  (?:\\b[0-9][0-9_]*(\\.)[0-9][0-9_]*[eE][+-]?[0-9][0-9_]*(n)?\\b)| # 1.1E+3\n  (?:\\b[0-9][0-9_]*(\\.)[eE][+-]?[0-9][0-9_]*(n)?\\b)|             # 1.E+3\n  (?:\\B(\\.)[0-9][0-9_]*[eE][+-]?[0-9][0-9_]*(n)?\\b)|             # .1E+3\n  (?:\\b[0-9][0-9_]*[eE][+-]?[0-9][0-9_]*(n)?\\b)|                 # 1E+3\n  (?:\\b[0-9][0-9_]*(\\.)[0-9][0-9_]*(n)?\\b)|                      # 1.1\n  (?:\\b[0-9][0-9_]*(\\.)(n)?\\B)|                                  # 1.\n  (?:\\B(\\.)[0-9][0-9_]*(n)?\\b)|                                  # .1\n  (?:\\b[0-9][0-9_]*(n)?\\b(?!\\.))                                 # 1\n)(?!\\$)",
+            "captures": {
+                "0": {
+                    "name": "constant.numeric.decimal.js"
+                },
+                "1": {
+                    "name": "meta.delimiter.decimal.period.js"
+                },
+                "2": {
+                    "name": "storage.type.numeric.bigint.js"
+                },
+                "3": {
+                    "name": "meta.delimiter.decimal.period.js"
+                },
+                "4": {
+                    "name": "storage.type.numeric.bigint.js"
+                },
+                "5": {
+                    "name": "meta.delimiter.decimal.period.js"
+                },
+                "6": {
+                    "name": "storage.type.numeric.bigint.js"
+                },
+                "7": {
+                    "name": "storage.type.numeric.bigint.js"
+                },
+                "8": {
+                    "name": "meta.delimiter.decimal.period.js"
+                },
+                "9": {
+                    "name": "storage.type.numeric.bigint.js"
+                },
+                "10": {
+                    "name": "meta.delimiter.decimal.period.js"
+                },
+                "11": {
+                    "name": "storage.type.numeric.bigint.js"
+                },
+                "12": {
+                    "name": "meta.delimiter.decimal.period.js"
+                },
+                "13": {
+                    "name": "storage.type.numeric.bigint.js"
+                },
+                "14": {
+                    "name": "storage.type.numeric.bigint.js"
+                }
+            }
+        }
+		,"support-functions": {
+			"patterns": [{
+				"name": "support.function.krp",
+				"match": "skin_lookat|get|set(?=\\s*\\()"
+			}]
+		}
+		,"operators": {
+			"patterns": [{
+				"name": "keyword.operator.logical.krp",
+				"match": "AND|OR|LT|GT|=|\\!|\\+|\\-"
+			}]
+		}
+		,"strings": {
+			"name": "string.quoted.double.krp",
+			"begin": "'",
+			"end": "'",
+			"patterns": [
+				{
+					"name": "constant.character.escape.krp",
+					"match": "\\\\."
+				}
+			]
+		}
+		,"inline-comment": {
+			"name": "comment.line.double-slash.krp",
+			"begin": "//",
+			"end": "\\n"
+		}
+	}
+	,"scopeName": "source.krp"
+}

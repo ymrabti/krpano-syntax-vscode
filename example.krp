@@ -1,0 +1,7 @@
+if ((webvr.isenabled == true AND skin_settings.webvr_keeplookingdirection == false) OR (!webvr.isenabled OR plugin LT 52.544 + 1 AND plugin[skin_gyro].enabled == true AND skin_settings.gyro_keeplookingdirection == false),
+    skin_lookat(get(xml.view.hlookat));
+		);
+
+"jhsdfhd"
+
+// comment 

@@ -1,0 +1,25 @@
+{
+    "name": "krp",
+    "displayName": "Krpano",
+    "description": "Krpano Syntax",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.62.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "krp",
+            "aliases": ["krp syntax", "krp"],
+            "extensions": [".krp"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "krp",
+            "scopeName": "source.krp",
+            "path": "./syntaxes/krp.tmLanguage.json"
+        }]
+    }
+}
