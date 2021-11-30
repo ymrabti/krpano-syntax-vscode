@@ -1,7 +1,60 @@
-if ((webvr.isenabled == true AND skin_settings.webvr_keeplookingdirection == false) OR (!webvr.isenabled OR plugin LT 52.544 + 1 AND plugin[skin_gyro].enabled == true AND skin_settings.gyro_keeplookingdirection == false),
-    skin_lookat(get(xml.view.hlookat));
-		);
+calc(show_selbuttons, scene.count GT 1);
+calc(show_thumbutton, skin_settings.thumbs == true);
+calc(show_mapbutton,  skin_settings.maps == true);
+calc(show_gyrobutton, plugin[skin_gyro].isavailable == true AND (view.vlookatrange == 180 OR global.lpinfo.scene === xml.scene));
+calc(show_vrbutton,   webvr.isavailable == true);
+calc(show_fsbutton,   device.fullscreensupport == true);
 
-"jhsdfhd"
+set(lpos,6);
+set(cpos,0);
+if(show_gyrobutton, dec(cpos,20));
+if(show_vrbutton OR plugin[webvr].mobilevr_fake_support == true, dec(cpos,24));
+set(rpos,6);
 
-// comment 
+calc(show_dirbuttons, !device.mobile AND ((area.pixelwidth + 2*cpos) GT 520) );
+
+copy(layer[skin_btn_navi].visible, show_dirbuttons);
+
+copy(layer[skin_btn_prev].visible, show_selbuttons);
+copy(layer[skin_btn_next].visible, show_selbuttons);
+if(show_selbuttons, inc(lpos,44); inc(rpos,44); );
+
+copy(layer[skin_btn_thumbs].visible, show_thumbutton);
+// copy(layer[skin_btn_thumbs].x, lpos);
+if(show_thumbutton, inc(lpos,40));
+
+copy(layer[skin_btn_map].visible, show_mapbutton);
+// copy(layer[skin_btn_map].x, lpos);
+if(show_mapbutton, inc(lpos,40));
+
+if(show_dirbuttons,
+    copy(layer[skin_btn_navi].x, cpos);
+    inc(cpos,140);
+
+    set(layer[skin_btn_gyro].align, center);
+    copy(layer[skin_btn_gyro].visible, show_gyrobutton);
+    copy(layer[skin_btn_gyro].x, cpos);
+    if(show_gyrobutton, inc(cpos,48));
+
+    set(layer[skin_btn_vr].align, center);
+    copy(layer[skin_btn_vr].visible, show_vrbutton);
+    copy(layer[skin_btn_vr].x, cpos);
+    if(show_vrbutton, inc(cpos,80));
+    ,
+    set(layer[skin_btn_gyro].align, left);
+    copy(layer[skin_btn_gyro].visible, show_gyrobutton);
+    // copy(layer[skin_btn_gyro].x, lpos);
+    if(show_gyrobutton, inc(lpos,40));
+
+    set(layer[skin_btn_vr].align, left);
+    copy(layer[skin_btn_vr].visible, show_vrbutton);
+    // copy(layer[skin_btn_vr].x, lpos);
+    if(show_vrbutton, inc(lpos,80));
+);
+
+copy(layer[skin_btn_hide].x, rpos);
+inc(rpos,40);
+
+copy(layer[skin_btn_fs].visible, show_fsbutton);
+// copy(layer[skin_btn_fs].x, rpos);
+if(show_fsbutton, inc(rpos,40));

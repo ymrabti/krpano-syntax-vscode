@@ -1,0 +1,382 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "xkrp syntax",
+    "scopeName": "text.xkrp",
+    "patterns": [
+        {
+            "begin": "(<\\?)\\s*([-_a-zA-Z0-9]+)",
+            "captures": {
+                "1": {
+                    "name": "punctuation.definition.tag.xkrp"
+                },
+                "2": {
+                    "name": "entity.name.tag.xkrp"
+                }
+            },
+            "end": "(\\?>)",
+            "name": "meta.tag.preprocessor.xkrp",
+            "patterns": [
+                {
+                    "match": " ([a-zA-Z-]+)",
+                    "name": "entity.other.attribute-name.xkrp"
+                },
+                {
+                    "include": "#doublequotedString"
+                },
+                {
+                    "include": "#singlequotedString"
+                }
+            ]
+        },
+        {
+            "begin": "(<!)(DOCTYPE)\\s+([:a-zA-Z_][:a-zA-Z0-9_.-]*)",
+            "captures": {
+                "1": {
+                    "name": "punctuation.definition.tag.xkrp"
+                },
+                "2": {
+                    "name": "keyword.other.doctype.xkrp"
+                },
+                "3": {
+                    "name": "variable.language.documentroot.xkrp"
+                }
+            },
+            "end": "\\s*(>)",
+            "name": "meta.tag.sgml.doctype.xkrp",
+            "patterns": [
+                {
+                    "include": "#internalSubset"
+                }
+            ]
+        },
+        {
+            "include": "#comments"
+        },
+        {
+            "begin": "(<)((?:([-_a-zA-Z0-9]+)(:))?([-_a-zA-Z0-9:]+))(?=(\\s[^>]*)?></\\2>)",
+            "beginCaptures": {
+                "1": {
+                    "name": "punctuation.definition.tag.xkrp"
+                },
+                "2": {
+                    "name": "entity.name.tag.xkrp"
+                },
+                "3": {
+                    "name": "entity.name.tag.namespace.xkrp"
+                },
+                "4": {
+                    "name": "punctuation.separator.namespace.xkrp"
+                },
+                "5": {
+                    "name": "entity.name.tag.localname.xkrp"
+                }
+            },
+            "end": "(>)(</)((?:([-_a-zA-Z0-9]+)(:))?([-_a-zA-Z0-9:]+))(>)",
+            "endCaptures": {
+                "1": {
+                    "name": "punctuation.definition.tag.xkrp"
+                },
+                "2": {
+                    "name": "punctuation.definition.tag.xkrp"
+                },
+                "3": {
+                    "name": "entity.name.tag.xkrp"
+                },
+                "4": {
+                    "name": "entity.name.tag.namespace.xkrp"
+                },
+                "5": {
+                    "name": "punctuation.separator.namespace.xkrp"
+                },
+                "6": {
+                    "name": "entity.name.tag.localname.xkrp"
+                },
+                "7": {
+                    "name": "punctuation.definition.tag.xkrp"
+                }
+            },
+            "name": "meta.tag.no-content.xkrp",
+            "patterns": [
+                {
+                    "include": "#tagStuff"
+                }
+            ]
+        },
+        {
+            "begin": "(</?)(?:([-\\w\\.]+)((:)))?([-\\w\\.:]+)",
+            "captures": {
+                "1": {
+                    "name": "punctuation.definition.tag.xkrp"
+                },
+                "2": {
+                    "name": "entity.name.tag.namespace.xkrp"
+                },
+                "3": {
+                    "name": "entity.name.tag.xkrp"
+                },
+                "4": {
+                    "name": "punctuation.separator.namespace.xkrp"
+                },
+                "5": {
+                    "name": "entity.name.tag.localname.xkrp"
+                }
+            },
+            "end": "(/?>)",
+            "name": "meta.tag.xkrp",
+            "patterns": [
+                {
+                    "include": "#tagStuff"
+                }
+            ]
+        },
+        {
+            "include": "#entity"
+        },
+        {
+            "include": "#bare-ampersand"
+        },
+        {
+            "begin": "<%@",
+            "beginCaptures": {
+                "0": {
+                    "name": "punctuation.section.embedded.begin.xkrp"
+                }
+            },
+            "end": "%>",
+            "endCaptures": {
+                "0": {
+                    "name": "punctuation.section.embedded.end.xkrp"
+                }
+            },
+            "name": "source.java-props.embedded.xkrp",
+            "patterns": [
+                {
+                    "match": "page|include|taglib",
+                    "name": "keyword.other.page-props.xkrp"
+                }
+            ]
+        },
+        {
+            "begin": "<%[!=]?(?!--)",
+            "beginCaptures": {
+                "0": {
+                    "name": "punctuation.section.embedded.begin.xkrp"
+                }
+            },
+            "end": "(?!--)%>",
+            "endCaptures": {
+                "0": {
+                    "name": "punctuation.section.embedded.end.xkrp"
+                }
+            },
+            "name": "source.java.embedded.xkrp",
+            "patterns": [
+                {
+                    "include": "source.java"
+                }
+            ]
+        },
+        {
+            "begin": "<!\\[CDATA\\[",
+            "beginCaptures": {
+                "0": {
+                    "name": "punctuation.definition.string.begin.xkrp"
+                }
+            },
+            "end": "]]>",
+            "endCaptures": {
+                "0": {
+                    "name": "punctuation.definition.string.end.xkrp"
+                }
+            },
+            "name": "string.unquoted.cdata.xkrp"
+        }
+    ],
+    "repository": {
+        "EntityDecl": {
+            "begin": "(<!)(ENTITY)\\s+(%\\s+)?([:a-zA-Z_][:a-zA-Z0-9_.-]*)(\\s+(?:SYSTEM|PUBLIC)\\s+)?",
+            "captures": {
+                "1": {
+                    "name": "punctuation.definition.tag.xkrp"
+                },
+                "2": {
+                    "name": "keyword.other.entity.xkrp"
+                },
+                "3": {
+                    "name": "punctuation.definition.entity.xkrp"
+                },
+                "4": {
+                    "name": "variable.language.entity.xkrp"
+                },
+                "5": {
+                    "name": "keyword.other.entitytype.xkrp"
+                }
+            },
+            "end": "(>)",
+            "patterns": [
+                {
+                    "include": "#doublequotedString"
+                },
+                {
+                    "include": "#singlequotedString"
+                }
+            ]
+        },
+        "bare-ampersand": {
+            "match": "&",
+            "name": "invalid.illegal.bad-ampersand.xkrp"
+        },
+        "doublequotedString": {
+            "begin": "\"",
+            "beginCaptures": {
+                "0": {
+                    "name": "punctuation.definition.string.begin.xkrp"
+                }
+            },
+            "end": "\"",
+            "endCaptures": {
+                "0": {
+                    "name": "punctuation.definition.string.end.xkrp"
+                }
+            },
+            "name": "string.quoted.double.xkrp",
+            "patterns": [
+                {
+                    "include": "#entity"
+                },
+                {
+                    "include": "#bare-ampersand"
+                }
+            ]
+        },
+        "entity": {
+            "captures": {
+                "1": {
+                    "name": "punctuation.definition.constant.xkrp"
+                },
+                "3": {
+                    "name": "punctuation.definition.constant.xkrp"
+                }
+            },
+            "match": "(&)([:a-zA-Z_][:a-zA-Z0-9_.-]*|#[0-9]+|#x[0-9a-fA-F]+)(;)",
+            "name": "constant.character.entity.xkrp"
+        },
+        "internalSubset": {
+            "begin": "(\\[)",
+            "captures": {
+                "1": {
+                    "name": "punctuation.definition.constant.xkrp"
+                }
+            },
+            "end": "(\\])",
+            "name": "meta.internalsubset.xkrp",
+            "patterns": [
+                {
+                    "include": "#EntityDecl"
+                },
+                {
+                    "include": "#parameterEntity"
+                },
+                {
+                    "include": "#comments"
+                }
+            ]
+        },
+        "parameterEntity": {
+            "captures": {
+                "1": {
+                    "name": "punctuation.definition.constant.xkrp"
+                },
+                "3": {
+                    "name": "punctuation.definition.constant.xkrp"
+                }
+            },
+            "match": "(%)([:a-zA-Z_][:a-zA-Z0-9_.-]*)(;)",
+            "name": "constant.character.parameter-entity.xkrp"
+        },
+        "singlequotedString": {
+            "begin": "'",
+            "beginCaptures": {
+                "0": {
+                    "name": "punctuation.definition.string.begin.xkrp"
+                }
+            },
+            "end": "'",
+            "endCaptures": {
+                "0": {
+                    "name": "punctuation.definition.string.end.xkrp"
+                }
+            },
+            "name": "string.quoted.single.xkrp",
+            "patterns": [
+                {
+                    "include": "#entity"
+                },
+                {
+                    "include": "#bare-ampersand"
+                }
+            ]
+        },
+        "tagStuff": {
+            "patterns": [
+                {
+                    "captures": {
+                        "1": {
+                            "name": "entity.other.attribute-name.namespace.xkrp"
+                        },
+                        "2": {
+                            "name": "entity.other.attribute-name.xkrp"
+                        },
+                        "3": {
+                            "name": "punctuation.separator.namespace.xkrp"
+                        },
+                        "4": {
+                            "name": "entity.other.attribute-name.localname.xkrp"
+                        }
+                    },
+                    "match": "(?:^|\\s+)(?:([-\\w.]+)((:)))?([-\\w.:]+)\\s*="
+                },
+                {
+                    "include": "#doublequotedString"
+                },
+                {
+                    "include": "#singlequotedString"
+                }
+            ]
+        },
+        "comments": {
+            "patterns": [
+                {
+                    "begin": "<%--",
+                    "captures": {
+                        "0": {
+                            "name": "punctuation.definition.comment.xkrp"
+                        },
+                        "end": "--%>",
+                        "name": "comment.block.xkrp"
+                    }
+                },
+                {
+                    "begin": "<!--",
+                    "captures": {
+                        "0": {
+                            "name": "punctuation.definition.comment.xkrp"
+                        }
+                    },
+                    "end": "-->",
+                    "name": "comment.block.xkrp",
+                    "patterns": [
+                        {
+                            "begin": "--(?!>)",
+                            "captures": {
+                                "0": {
+                                    "name": "invalid.illegal.bad-comments-or-CDATA.xkrp"
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}
