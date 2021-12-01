@@ -4,7 +4,7 @@ calc(show_mapbutton,  skin_settings.maps == true);
 calc(show_gyrobutton, plugin[skin_gyro].isavailable == true AND (view.vlookatrange == 180 OR global.lpinfo.scene === xml.scene));
 calc(show_vrbutton,   webvr.isavailable == true);
 calc(show_fsbutton,   device.fullscreensupport == true);
-
+setter and getter
 set(lpos,6);
 set(cpos,0);
 if(show_gyrobutton, dec(cpos,20));
@@ -18,7 +18,7 @@ copy(layer[skin_btn_navi].visible, show_dirbuttons);
 copy(layer[skin_btn_prev].visible, show_selbuttons);
 copy(layer[skin_btn_next].visible, show_selbuttons);
 if(show_selbuttons, inc(lpos,44); inc(rpos,44); );
-
+Math.tan();
 copy(layer[skin_btn_thumbs].visible, show_thumbutton);
 // copy(layer[skin_btn_thumbs].x, lpos);
 if(show_thumbutton, inc(lpos,40));
@@ -35,7 +35,7 @@ if(show_dirbuttons,
     copy(layer[skin_btn_gyro].visible, show_gyrobutton);
     copy(layer[skin_btn_gyro].x, cpos);
     if(show_gyrobutton, inc(cpos,48));
-
+    Math.cos()
     set(layer[skin_btn_vr].align, center);
     copy(layer[skin_btn_vr].visible, show_vrbutton);
     copy(layer[skin_btn_vr].x, cpos);
